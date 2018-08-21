@@ -1,0 +1,21 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-container>* {
+    width: 100%;
+}
+
+.form-control-file {
+    position: relative;
+    z-index: 2;
+    width: 200px;
+    opacity: 0;
+}
+
+.button-image {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+}

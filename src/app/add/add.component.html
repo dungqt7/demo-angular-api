@@ -1,0 +1,89 @@
+<!-- <form novalidate (ngSubmit)="onSubmit(form.value)" #form="ngForm" class="row justify-content-md-center">
+    <div class="col-md-8">
+        <div class="form-group row">
+            <label for="example-text-input" class="col-md-2 col-form-label">Name:</label>
+            <div class="col-md-10">
+                <input class="form-control" ngModel name="fullname" required type="text" id="example-text-input" #name="ngModel">
+            </div>
+            <mat-error *ngIf="name?.errors?.required && name?.touched" class="col-md-10 offset-md-2 mt-2"> Name is required</mat-error>
+            <mat-error [ngClass]="demo1? 'd-none':'d-block'" *ngFor="let error of errors" class="col-md-10 offset-md-2 mt-2"> {{error.fullname}}</mat-error>
+        </div>
+        <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label">Email:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="email" id="example-email-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-url-fb" class="col-md-2 col-form-label">Facebook:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="url" id="example-url-fb">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-url-twt" class="col-md-2 col-form-label">Twitter:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="url" id="example-url-twt">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-url-web" class="col-md-2 col-form-label">Website:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="url" id="example-url-web">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="example-tel-input" class="col-md-2 col-form-label">Tel:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="tel" id="example-tel-input">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-10 offset-md-2">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</form> -->
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="fullname">fullname</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="((validateForm.get('fullname').hasError('required') || validateForm.get('fullname').hasError('minlength')||validateForm.get('fullname').hasError('maxlength')||validateForm.get('fullname').hasError('pattern')) && validateForm.get('fullname').touched)? 'error' : 'success'"
+            nzHasFeedback>
+            <input nz-input formControlName="fullname" id="fullname">
+            <nz-form-explain>
+                <ng-container *ngIf="validateForm.get('fullname').hasError('minlength') && validateForm.get('fullname').errors">
+                    Nhap toi thieu 3 ky tu
+                </ng-container>
+                <br>
+                <ng-container *ngIf="validateForm.get('fullname').hasError('required') && validateForm.get('fullname').touched">
+                    Vui long nhap day du ho ten
+                </ng-container>
+                <ng-container *ngIf="validateForm.get('fullname').hasError('pattern') && validateForm.get('fullname').touched">
+                    Khong duoc nhap ky tu dac biet
+                </ng-container>
+                <ng-container *ngIf="validateForm.get('fullname').hasError('maxlength') && validateForm.get('fullname').errors">
+                    Nhap khong qua 5 ky tu
+                </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">age</nz-form-label>
+        <nz-input-number formControlName="age" id="age" [(ngModel)]="number" nzSize="large" nzMin="1" nzStep="1">
+        </nz-input-number>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Chọn ảnh</nz-form-label>
+        <input type="file" class="form-control-file" id="avatar" #fileInput (change)="onFileChange($event)">
+        <button nz-button class="button-image">
+          <i class="anticon anticon-upload"></i><span>Upload</span>
+        </button>
+        <p class="mt-2">{{img}}</p>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button nzType="primary" [disabled]="validateForm.invalid">Add</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
